@@ -105,7 +105,7 @@ router.post('/agent/checkout', async (req: Request, res: Response): Promise<void
     }
 });
 
-router.get('/generate-root-license', (req: Request, res: Response): void => {
+router.post('/generate-root-license', (req: Request, res: Response): void => {
     try {
         const { customerName, max_seats, expiryDate } = req.body;
 
