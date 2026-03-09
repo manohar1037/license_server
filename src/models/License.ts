@@ -3,14 +3,14 @@ import mongoose, { Document, Schema } from 'mongoose';
 // 1. The Root License (Uploaded by the Admin)
 export interface IRootLicense extends Document {
     rootKey: string;
-    maxSeats: number;
+    maxServers: number;
     expiresAt: number;
     uploadedAt: Date;
 }
 
 const RootLicenseSchema: Schema = new Schema({
     rootKey: { type: String, required: true, unique: true },
-    maxSeats: { type: Number, required: true },
+    maxServers: { type: Number, required: true },
     expiresAt: { type: Number, required: true }, 
     uploadedAt: { type: Date, default: Date.now }
 });

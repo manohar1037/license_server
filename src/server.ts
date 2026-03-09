@@ -11,7 +11,9 @@ app.use(express.json());
 
 const PORT = Number(process.env.PORT) || 3000;
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/license_db';
-
+app.get('/', (req, res) => {
+    res.send('Customer License Server is running!');
+});
 app.use('/api', apiRoutes);
 
 // Connect to MongoDB and start server

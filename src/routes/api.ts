@@ -36,7 +36,7 @@ router.post('/admin/upload-license', async (req: Request, res: Response): Promis
         await ActiveSeat.deleteMany({});
         const newLicense = new RootLicense({
             rootKey: root_key,
-            maxSeats: decoded.max_seats,
+            maxServers: decoded.max_seats,
             expiresAt: new Date((decoded.exp as number) * 1000)
         });
         await newLicense.save();
@@ -79,8 +79,8 @@ router.post('/agent/checkout', async (req: Request, res: Response): Promise<void
         if (!seat) {
             const currentSeats = await ActiveSeat.countDocuments();
 
-            console.log(`Current active seats: ${currentSeats}, Max seats allowed: ${license.maxSeats}`);
-            if (currentSeats >= license.maxSeats) {
+            console.log(`Current active seats: ${currentSeats}, Max seats allowed: ${license.maxServers}`);
+            if (currentSeats >= license.maxServers) {
                 res.status(402).json({ error: "Maximum seat limit reached." });
                 return;
             }
