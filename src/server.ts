@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/license_db';
 
 app.use('/api', apiRoutes);
@@ -18,7 +18,7 @@ app.use('/api', apiRoutes);
 mongoose.connect(MONGO_URI)
     .then(() => {
         console.log('✅ Connected to MongoDB');
-        app.listen(PORT, () => {
+        app.listen(PORT,"0.0.0.0", () => {
             console.log(`🚀 Customer License Server running on http://localhost:${PORT}`);
         });
     })
