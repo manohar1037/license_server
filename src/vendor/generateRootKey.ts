@@ -10,7 +10,7 @@ const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
 // Define the exact structure of the data inside the token
 interface LicensePayload {
     customerName: string;
-    max_seats: number;
+    max_servers: number;
     exp: number; // Standard JWT claim for expiration (Unix Epoch in seconds)
 }
 
@@ -27,7 +27,7 @@ function generateLicense(customerName: string, seats: number, expiryDate: Date):
     // 2. Build the exact payload
     const payload: LicensePayload = {
         customerName,
-        max_seats: seats,
+        max_servers: seats,
         exp: expEpochSeconds // Embed the epoch directly
     };
 

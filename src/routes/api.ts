@@ -36,12 +36,12 @@ router.post('/admin/upload-license', async (req: Request, res: Response): Promis
         await ActiveSeat.deleteMany({});
         const newLicense = new RootLicense({
             rootKey: root_key,
-            maxServers: decoded.max_seats,
+            maxServers: decoded.max_servers,
             expiresAt: new Date((decoded.exp as number) * 1000)
         });
         await newLicense.save();
 
-        res.json({ message: `License installed successfully for ${decoded.max_seats} seats.` });
+        res.json({ message: `License installed successfully for ${decoded.max_servers} seats.` });
     } catch (err) {
         res.status(400).json({ error: "Invalid or expired Root License.", details: (err as Error).message });
     }
@@ -107,18 +107,18 @@ router.post('/agent/checkout', async (req: Request, res: Response): Promise<void
 
 router.post('/generate-root-license', (req: Request, res: Response): void => {
     try {
-        const { customerName, max_seats, expiryDate } = req.body;
+        const { customerName, max_servers, expiryDate } = req.body;
 
-        if (!customerName || !max_seats || !expiryDate) {
+        if (!customerName || !max_servers || !expiryDate) {
             res.status(400).json({
-                error: "customerName, max_seats, and expiryDate are required"
+                error: "customerName, max_servers, and expiryDate are required"
             });
             return;
         }
 
         const expiry = new Date(expiryDate);
 
-        const token = generateLicense(customerName, max_seats, expiry);
+        const token = generateLicense(customerName, max_servers, expiry);
 
         res.json({
             message: "License generated",
